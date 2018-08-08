@@ -1,0 +1,49 @@
+<section id="pricing" class="pricing-section">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="col-md-12">
+                    <div class="section-title text-center">
+                        <h2>Наши цены</h2>
+                        <p>Самые демократичные на Дальнем Востоке</p>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="pricing">
+
+                <!-- Start Item Section -->
+                <?php
+                /** @var \Application\Entity\Shop\ShopItem $shopitem */
+                foreach ($this->shopitems as $shopitem) {
+                    echo $this->partial('application/index/shop-element', ['shopitem' => $shopitem]);
+                }
+                ?>
+                <!-- End Item Section -->
+
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="col-md-12">
+                    <div class="section-title text-center">
+                        <a class="btn btn-success" href="#view-cart" data-toggle="modal" id="shop-section-cart-button">Перейти
+                            в корзину</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+</section>
+
+<?php
+/** @var \Application\Entity\Shop\ShopItem $shopitem */
+foreach ($this->shopitems as $shopitem) {
+    echo $this->partial('application/index/shop-element-details', ['shopitem' => $shopitem]);
+}
+?>

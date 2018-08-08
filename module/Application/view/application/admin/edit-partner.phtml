@@ -1,0 +1,62 @@
+<?php
+$this->headTitle('Edit ' . $partner->getName() . '\'s info');
+
+
+$form->get('name')->setAttributes([
+    'class' => 'form-control'
+]);
+
+$form->get('img')->setAttributes([
+    'class' => 'form-control'
+]);
+
+$form->get('submit')
+    ->setAttributes(['class' => 'btn btn-primary'])
+    ->setValue('Save');
+
+$form->prepare();
+
+
+$this->pageBreadcrumbs()->setItems([
+    'Main' => $this->url('admin'),
+    'Partners' => $this->url('admin', ['action' => 'partners']),
+    'Edit ' . $partner->getName() . '\'s info' => $this->url('admin', ['action' => 'edit-partner'])
+]);
+?>
+
+
+<div class="container">
+    <div class="row">
+
+        <div class="col-md-6 text-center" style="float: none;margin: 0 auto;">
+            <?= $this->form()->openTag($form); ?>
+
+            <div class="form-group">
+                <?= $this->formLabel($form->get('name')); ?>
+                <?= $this->formElement($form->get('name')); ?>
+                <?= $this->formElementErrors($form->get('name')); ?>
+            </div>
+
+            <div>
+                <p>Old logo:</p>
+                <span><img src="<?= $partner->getImg() ?>"
+                           style="width: 285px; height: auto; margin-bottom: 40px;"/></span>
+
+            </div>
+
+            <div class="form-group">
+                <?= $this->formLabel($form->get('img')); ?>
+                <?= $this->formElement($form->get('img')); ?>
+                <?= $this->formElementErrors($form->get('img')); ?>
+            </div>
+
+            <?= $this->formElement($form->get('submit')); ?>
+            <a class="btn btn-default btn-danger" href="<?= $this->url('admin',
+                ['action' => 'delete-partner', 'id' => $partner->getId()]); ?>">
+                <span class="glyphicon glyphicon-remove-circle"></span> Delete
+            </a>
+
+            <?= $this->form()->closeTag(); ?>
+        </div>
+    </div>
+</div>

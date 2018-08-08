@@ -1,0 +1,57 @@
+<?php
+$this->headTitle('Add Commander');
+
+$form->get('name')->setAttributes([
+    'class' => 'form-control'
+]);
+
+$form->get('description')->setAttributes([
+    'class' => 'form-control'
+]);
+
+
+$form->get('photo')->setAttributes([
+    'class' => 'form-control'
+]);
+
+$form->get('submit')->setAttributes(['class' => 'btn btn-primary']);
+
+$form->prepare();
+
+$this->pageBreadcrumbs()->setItems([
+    'Main' => $this->url('admin'),
+    'Commanders' => $this->url('admin', ['action' => 'commanders']),
+    'Add new commander' => $this->url('admin', ['action' => 'add-commander'])
+]);
+?>
+
+<div class="container">
+    <div class="row">
+
+        <div class="col-md-6 text-center" style="float: none;margin: 0 auto;">
+            <?= $this->form()->openTag($form); ?>
+
+            <div class="form-group">
+                <?= $this->formLabel($form->get('name')); ?>
+                <?= $this->formElement($form->get('name')); ?>
+                <?= $this->formElementErrors($form->get('name')); ?>
+            </div>
+            <div class="form-group">
+                <?= $this->formLabel($form->get('description')); ?>
+                <?= $this->formElement($form->get('description')); ?>
+                <?= $this->formElementErrors($form->get('description')); ?>
+            </div>
+
+            <div class="form-group">
+                <?= $this->formLabel($form->get('photo')); ?>
+                <?= $this->formElement($form->get('photo')); ?>
+                <?= $this->formElementErrors($form->get('photo')); ?>
+            </div>
+
+            <?= $this->formElement($form->get('submit')); ?>
+
+            <?= $this->form()->closeTag(); ?>
+        </div>
+    </div>
+</div>
+

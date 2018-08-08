@@ -1,0 +1,22 @@
+<section id="partner">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="section-title text-center">
+                    <h2>Наши уважаемые партнеры</h2>
+                    <p></p>
+                </div>
+            </div>
+        </div>
+        <div class="row" style=>
+
+            <?php
+            foreach ($this->partners as $partner) {
+                echo $this->partial('application/index/partner', ['partner' => $partner]);
+            }
+            ?>
+
+        </div>
+    </div>
+    </div>
+</section>

@@ -1,0 +1,82 @@
+<!-- Start About Expedition HV Table Section -->
+<div class="section-modal modal fade" id="shop-item-details<?= $this->shopitem->getId() ?>" tabindex="-1" role="dialog"
+     aria-hidden="true">
+    <div class="modal-content">
+        <div class="close-modal" data-dismiss="modal">
+            <div class="lr">
+                <div class="rl">
+                </div>
+            </div>
+        </div>
+        <!--item start-->
+        <div class="container">
+            <div class="row">
+                <div class="text-center">
+                    <h1><?= $this->shopitem->getName() ?></h1>
+
+                    <img src="<?= $this->shopitem->getImage() ?>" class="img-responsive" alt=".."
+                         style="float: none;margin: 0 auto;">
+
+                </div>
+            </div>
+            <div class="row">
+                <div class="text-center">
+                    <h2><?= $shopitem->getFormattedCost() ?></h2>
+                    <h2 style="display: none"><?= $shopitem->getCost() ?></h2>
+                    <h3>Информация</h3>
+                </div>
+            </div>
+            <div class="row">
+                <?php if ($shopitem->getGists()[0]): ?>
+                    <div class="col-md-6">
+                        <div class="plan-list">
+                            <ul>
+                                <li>
+                                    <?php foreach ($shopitem->getGists() as $gist): ?>
+                                        <div class="skill-shortcode">
+                                            <!-- Progress Bar -->
+
+                                            <div class="skill">
+                                                <p><?= $gist->getName() ?></p>
+                                                <div class="progress">
+                                                    <div class="progress-bar" role="progressbar"
+                                                         data-percentage="<?= $gist->getValue() * 10 ?>">
+                                                        <span class="progress-bar-span"><?= $gist->getValue() ?>
+                                                            /10</span>
+                                                    </div>
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                    <?php endforeach; ?>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                <?php endif; ?>
+                <div class="col-md-6 text-center">
+                    <?php if ($shopitem->getParameters()[0]): ?>
+                        <h4><strong>Характеристики</strong></h4>
+                        <?php foreach ($shopitem->getParameters() as $parameter): ?>
+                            <p style="margin: 0"><strong><?= $parameter->getName() ?>
+                                    :</strong> <?= $parameter->getValue() ?>
+                            </p>
+                        <?php endforeach; ?>
+                    <?php endif; ?>
+                    <h4><strong>Описание</strong></h4>
+                    <p style="margin: 10px"><?= $shopitem->getDescription(); ?></p>
+                    <div class="form-group">
+                        <label for="count<?= $shopitem->getId(); ?>">Кол-во:&nbsp;</label><input type="number" max="10"
+                                                                                                 min="1" maxlength="2"
+                                                                                                 name="count" value="1"
+                                                                                                 id="count<?= $shopitem->getId(); ?>">
+                    </div>
+                    <a class="btn btn-primary" href="#" onclick="buyClick(<?= $shopitem->getId(); ?>)"
+                       data-dismiss="modal">Купить</a>
+                </div>
+            </div>
+        </div>
+        <!--item finish-->
+
+    </div>
+</div>

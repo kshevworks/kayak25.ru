@@ -1,0 +1,82 @@
+<?php
+$this->headTitle('Edit ' . $testimonial->getAuthor() . '\'s review');
+
+
+$form->get('author')->setAttributes([
+    'class' => 'form-control'
+]);
+
+$form->get('description')->setAttributes([
+    'class' => 'form-control'
+]);
+
+$form->get('text')->setAttributes([
+    'class' => 'form-control',
+    'rows' => '5'
+]);
+
+$form->get('photo')->setAttributes([
+    'class' => 'form-control'
+]);
+
+$form->get('submit')
+    ->setAttributes(['class' => 'btn btn-primary'])
+    ->setValue('Save');
+
+$form->prepare();
+
+
+$this->pageBreadcrumbs()->setItems([
+    'Main' => $this->url('admin'),
+    'Reviews' => $this->url('admin', ['action' => 'testimonials']),
+    'Edit ' . $testimonial->getAuthor() . '\'s review' => $this->url('admin', ['action' => 'edit-testimonial'])
+]);
+?>
+
+
+<div class="container">
+    <div class="row">
+
+        <div class="col-md-6 text-center" style="float: none;margin: 0 auto;">
+            <?= $this->form()->openTag($form); ?>
+
+            <div class="form-group">
+                <?= $this->formLabel($form->get('author')); ?>
+                <?= $this->formElement($form->get('author')); ?>
+                <?= $this->formElementErrors($form->get('author')); ?>
+            </div>
+            <div class="form-group">
+                <?= $this->formLabel($form->get('description')); ?>
+                <?= $this->formElement($form->get('description')); ?>
+                <?= $this->formElementErrors($form->get('description')); ?>
+            </div>
+
+            <div class="form-group">
+                <?= $this->formLabel($form->get('text')); ?>
+                <?= $this->formElement($form->get('text')); ?>
+                <?= $this->formElementErrors($form->get('text')); ?>
+            </div>
+
+            <div>
+                <p>Old photo:</p>
+                <span><img src="<?= $testimonial->getPhoto() ?>"
+                           style="width: 150px; height: auto; margin-bottom: 40px;"/></span>
+
+            </div>
+
+            <div class="form-group">
+                <?= $this->formLabel($form->get('photo')); ?>
+                <?= $this->formElement($form->get('photo')); ?>
+                <?= $this->formElementErrors($form->get('photo')); ?>
+            </div>
+
+            <?= $this->formElement($form->get('submit')); ?>
+            <a class="btn btn-default btn-danger" href="<?= $this->url('admin',
+                ['action' => 'delete-testimonial', 'id' => $testimonial->getId()]); ?>">
+                <span class="glyphicon glyphicon-remove-circle"></span> Delete
+            </a>
+
+            <?= $this->form()->closeTag(); ?>
+        </div>
+    </div>
+</div>

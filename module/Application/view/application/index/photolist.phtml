@@ -1,0 +1,25 @@
+<div class="section-modal modal fade" id="album<?= $this->album->getId() ?>" tabindex="-1" role="dialog"
+     aria-hidden="true">
+    <div class="modal-content">
+        <div class="close-modal" data-dismiss="modal">
+            <div class="lr">
+                <div class="rl">
+                </div>
+            </div>
+        </div>
+        <div class="section-title text-center">
+            <h4><?= $this->album->getName() ?></h4>
+            <h6><?= $this->album->getDate() ?></h6>
+            <h5><?= $this->album->getDescription() ?></h5>
+        </div>
+        <div class="photo-view">
+            <?php
+            foreach ($this->album->getPhotos() as $photo) {
+                echo $this->partial('application/index/photo', ['photo' => $photo]);
+            }
+            ?>
+            <
+        </div>
+
+    </div>
+</div>

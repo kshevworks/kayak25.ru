@@ -1,0 +1,8 @@
+<?php
+$this->pageBreadcrumbs()->setItems([
+    'Main' => $this->url('admin'),
+    'Users' => $this->url('admin', ['action' => 'users']),
+    'Add User' => $this->url('admin', ['action' => 'userAdd']),
+]);
+?>
+<?= $this->partial('application/user/add'); ?>

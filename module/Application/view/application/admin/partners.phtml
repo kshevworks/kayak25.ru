@@ -1,0 +1,62 @@
+<?php
+$this->headTitle('Partners');
+
+
+$this->adminMenu()->setActiveItemId('partners');
+
+$this->pageBreadcrumbs()->setItems([
+    'Main' => $this->url('admin'),
+    'Partners' => $this->url('admin', ['action' => 'partners'])
+]);
+$this->flashMessenger()->render('error', ['alert', 'alert-warning']);
+$this->flashMessenger()->render('success', ['alert', 'alert-success']);
+$this->flashMessenger()->render('info', ['alert', 'alert-info']);
+?>
+<div class="container">
+    <div class="row">
+        <div class="col-md-12 text-center" style="padding-bottom: 20px">
+            <a class="btn btn-default" href="<?= $this->url('admin', ['action' => 'add-partner']); ?>">
+                <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Add partner
+            </a>
+        </div>
+        <div class="col-md-12">
+            <table class="table">
+
+                <tr style="background: #222222;color:white;">
+                    <th>ID</th>
+                    <th>Name</th>
+                    <th>Logo</th>
+                    <th>Actions</th>
+                </tr>
+
+                <?php foreach ($partners as $partner): ?>
+
+                    <tr style="background: #d3d3d3">
+                        <td class="col-md-1"><?= $this->escapeHtml($partner->getId()); ?></td>
+                        <td class="col-md-2"><?= $this->escapeHtml($partner->getName()); ?></td>
+                        <td class="col-md-7"><img src="<?= $this->escapeHtml($partner->getImg()); ?>"
+                                                  alt="<?= $this->escapeHtml($partner->getName()); ?>"/></td>
+                        <td class="col-md-2">
+                            <a class="btn btn-info" href="<?= $this->url('admin',
+                                ['action' => 'edit-partner', 'id' => $partner->getId()]); ?>">
+                                <span class="glyphicon glyphicon-pencil"></span> Edit
+                            </a>
+                            <a class="btn btn-default btn-danger" href="<?= $this->url('admin',
+                                ['action' => 'delete-partner', 'id' => $partner->getId()]); ?>">
+                                <span class="glyphicon glyphicon-remove-circle"></span> Delete
+                            </a>
+                        </td>
+                    </tr>
+
+                <?php endforeach; ?>
+
+            </table>
+        </div>
+        <div class="col-md-12 text-center">
+            <?= $this->paginationControl($partners,
+                'Sliding',
+                'application/partial/paginator',
+                array('route' => 'admin', ['action' => 'partners'])); ?>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,7 @@
+<?php
+$this->pageBreadcrumbs()->setItems([
+    'Main' => $this->url('admin'),
+    'Users' => $this->url('admin', ['action' => 'users'])
+]);
+?>
+<?= $this->partial('application/user/index'); ?>

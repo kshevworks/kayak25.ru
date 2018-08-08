@@ -1,0 +1,55 @@
+<?php
+$this->headTitle('Shop administration');
+
+
+$this->adminMenu()->setActiveItemId('shop');
+
+$this->pageBreadcrumbs()->setItems([
+    'Main' => $this->url('admin'),
+    'Shop' => $this->url('admin', ['action' => 'shop'])
+]);
+$this->flashMessenger()->render('error', ['alert', 'alert-warning']);
+$this->flashMessenger()->render('success', ['alert', 'alert-success']);
+$this->flashMessenger()->render('info', ['alert', 'alert-info']);
+?>
+<div class="container">
+    <div class="row">
+
+        <div class="col-md-12 text-center" style="padding-bottom: 20px">
+            <a class="btn btn-default" href="
+    <?= $this->url('admin', ['action' => 'add-shop-item']); ?>">
+                <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> New item
+            </a>
+        </div>
+        <div class="col-md-12" style="display: flex; justify-content: center;">
+            <?php foreach ($shopitems
+
+                           as $shopitem): ?>
+                <div class="col-md-2 text-center" id="admin-shop-item"
+                     style="border:2px solid black; margin:5px; height: 500px; width: 300px; background-color:#f8f8f8;box-shadow: 1px 1px 2px black"
+                     data-href="<?= $this->url('admin', ['action' => 'view-shop-item', 'id' => $shopitem->getId()]); ?>">
+                    <div><a class="btn btn-danger" href="
+    <?= $this->url('admin', ['action' => 'delete-shop-item', 'id' => $shopitem->getId()]); ?>"
+                            style="position:relative; float: right; margin:-5px; margin-right: -20px">
+                            <span class="fa fa-times" aria-hidden="true"></span>
+                        </a></div>
+                    <div style="padding-bottom: 20pt"><h3><?= $shopitem->getName() ?></h3></div>
+
+
+                    <img src="<?= $shopitem->getImage(); ?>" class="img-responsive"
+                         style="box-shadow: 1px 1px 2px black">
+                    <h3><?= $shopitem->getFormattedCost() ?></h3>
+                    <p><?= $shopitem->getDescription(); ?></p>
+                </div>
+
+
+            <?php endforeach; ?>
+        </div>
+        <div class="col-md-12 text-center">
+            <?= $this->paginationControl($shopitems,
+                'Sliding',
+                'application/partial/paginator',
+                array('route' => 'admin', ['action' => 'shop'])); ?>
+        </div>
+    </div>
+</div>

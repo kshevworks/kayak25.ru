@@ -1,0 +1,65 @@
+<?php
+$this->headTitle('Add Counter');
+
+$form->get('name')->setAttributes([
+    'class' => 'form-control'
+]);
+
+$form->get('count')->setAttributes([
+    'class' => 'form-control'
+]);
+
+$form->get('icon')->setAttributes([
+    'class' => 'form-control'
+]);
+
+
+$form->get('speed')->setAttributes([
+    'class' => 'form-control'
+]);
+
+$form->get('submit')->setAttributes(['class' => 'btn btn-primary'])->setValue('Save');;
+
+$form->prepare();
+
+$this->pageBreadcrumbs()->setItems([
+    'Main' => $this->url('admin'),
+    'Counters' => $this->url('admin', ['action' => 'counters']),
+    'Edit counter' => $this->url('admin', ['action' => 'edit-counter'])
+]);
+?>
+
+<div class="container">
+    <div class="row">
+
+        <div class="col-md-6 text-center" style="float: none;margin: 0 auto;">
+            <?= $this->form()->openTag($form); ?>
+
+            <div class="form-group">
+                <?= $this->formLabel($form->get('count')); ?>
+                <?= $this->formElement($form->get('count')); ?>
+                <?= $this->formElementErrors($form->get('count')); ?>
+            </div>
+            <div class="form-group">
+                <?= $this->formLabel($form->get('speed')); ?>
+                <?= $this->formElement($form->get('speed')); ?>
+                <?= $this->formElementErrors($form->get('speed')); ?>
+            </div>
+            <div class="form-group">
+                <?= $this->formLabel($form->get('name')); ?>
+                <?= $this->formElement($form->get('name')); ?>
+                <?= $this->formElementErrors($form->get('name')); ?>
+            </div>
+
+            <?= $this->partial('application/admin/counter_list_icons'); ?>
+
+            <div class="form-group">
+                <?= $this->formElement($form->get('icon')); ?>
+            </div>
+
+            <?= $this->formElement($form->get('submit')); ?>
+
+            <?= $this->form()->closeTag(); ?>
+        </div>
+    </div>
+</div>

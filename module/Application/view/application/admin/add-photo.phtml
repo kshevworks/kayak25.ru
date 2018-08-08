@@ -1,0 +1,58 @@
+<?php
+$this->headTitle('Add Photos to album ' . $album->getName());
+
+
+$form->get('photo')->setAttributes([
+    'class' => 'form-control',
+    'onChange' => $this->escapeHtml('preview_images();'),
+    'style' => 'height:100px;',
+    'multiple' => 'true'
+]);
+$form->get('submit')
+    ->setAttributes(['class' => 'btn btn-primary'])
+    ->setValue('Upload');
+
+$form->prepare();
+
+
+$this->pageBreadcrumbs()->setItems([
+    'Main' => $this->url('admin'),
+    'Gallery' => $this->url('admin', ['action' => 'albums']),
+    'Add Photos to album ' . $album->getName() => $this->url('admin', ['action' => 'add-photo'])
+]);
+?>
+
+
+<div class="container">
+    <div class="row">
+
+        <div class="col-md-6 text-center" style="float: none;margin: 0 auto;">
+            <?= $this->form()->openTag($form); ?>
+
+            <div class="form-group">
+                <?= $this->formLabel($form->get('photo')); ?>
+                <?= $this->formElement($form->get('photo')); ?>
+                <?= $this->formElementErrors($form->get('photo')); ?>
+            </div>
+
+            <?= $this->formElement($form->get('submit')); ?>
+
+            <?= $this->form()->closeTag(); ?>
+        </div>
+
+    </div>
+    <div class="row" style="margin-top: 25px">
+        <div class="col-md-12" id="photopreview">
+
+        </div>
+    </div>
+</div>
+<script>
+    function preview_images() {
+        var total_file = document.getElementById("photo").files.length;
+        $('#photopreview').empty();
+        for (var i = 0; i < total_file; i++) {
+            $('#photopreview').append("<div class='col-md-2' style='width: auto;'><img style='width:300px;' class='img-responsive' src='" + URL.createObjectURL(event.target.files[i]) + "'></div>");
+        }
+    }
+</script>

@@ -1,0 +1,64 @@
+<?php
+$this->headTitle('Users');
+
+
+$this->adminMenu()->setActiveItemId('users');
+?>
+<div class="container">
+    <div class="row">
+
+        <!--<div class="col-md-12 text-center" style="padding-bottom: 20px">
+            <a class="btn btn-default" href="
+    <?= $this->url('admin', ['action' => 'addUser']); ?>">
+                <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> New User
+            </a>
+        </div>-->
+        <div class="col-md-12">
+            <table class="table table-striped">
+
+                <tr>
+                    <th>ID</th>
+                    <th>E-mail</th>
+                    <th>Full Name</th>
+                    <th>Date Created</th>
+                    <th>Status</th>
+                    <th>Actions</th>
+                </tr>
+
+                <?php foreach ($users as $user): ?>
+
+                    <tr>
+                        <td><?= $this->escapeHtml($user->getId()); ?></td>
+                        <td>
+                            <a href="<?= $this->url('admin', ['action' => 'view-user', 'id' => $user->getId()]); ?>">
+                                <?= $this->escapeHtml($user->getEmail()); ?>
+                            </a>
+                        </td>
+                        <td><?= $this->escapeHtml($user->getFullName()); ?></a>
+                        </td>
+                        <td><?= $this->escapeHtml($user->getDateCreated()); ?></td>
+                        <td><?= $this->escapeHtml($user->getStatusAsString()); ?></td>
+                        <td>
+                            <a class="btn btn-info" href="<?= $this->url('admin',
+                                ['action' => 'edit-user', 'id' => $user->getId()]); ?>">
+                                <span class="glyphicon glyphicon-pencil"></span> Edit
+                            </a>
+                            <a class="btn btn-default" href="<?= $this->url('admin',
+                                ['action' => 'change-password', 'id' => $user->getId()]); ?>">
+                                <span class="glyphicon glyphicon-asterisk"></span> Change Password
+                            </a>
+                        </td>
+                    </tr>
+
+                <?php endforeach; ?>
+
+            </table>
+        </div>
+        <div class="col-md-12 text-center">
+            <?= $this->paginationControl($users,
+                'Sliding',
+                'application/partial/paginator',
+                array('route' => 'users')); ?>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,46 @@
+<?php
+$this->headTitle('View ' . $commander->getName() . '\'s info');
+
+
+$this->pageBreadcrumbs()->setItems([
+    'Main' => $this->url('admin'),
+    'Commanders' => $this->url('admin', ['action' => 'commanders']),
+    'View ' . $commander->getName() . '\'s info' => $this->url('admin', ['action' => 'view-commander'])
+]);
+?>
+
+
+<div class="container">
+    <div class="row text-center">
+        <div class="col-md-6" style="float: none;margin: 0 auto;">
+            <table class="table table-striped table-bordered">
+                <tr>
+                    <th>ID:</th>
+                    <td><?= $this->escapeHtml($commander->getId()) ?></td>
+                    <td rowspan="3"><img src="<?= $this->escapeHtml($commander->getPhoto()) ?>"
+                                         style="width: 285px;height: auto;"/></td>
+                </tr>
+                <tr>
+                    <th>Author:</th>
+                    <td><?= $this->escapeHtml($commander->getName()) ?></td>
+                </tr>
+                <tr>
+                    <th>Description:</th>
+                    <td><?= $this->escapeHtml($commander->getDescription()) ?></td>
+                </tr>
+
+            </table>
+
+            <span>
+            <a class="btn btn-info" href="<?= $this->url('admin',
+                ['action' => 'edit-commander', 'id' => $commander->getId()]); ?>">
+                <span class="glyphicon glyphicon-pencil"></span> Edit
+            </a>
+            <a class="btn btn-default btn-danger" href="<?= $this->url('admin',
+                ['action' => 'delete-commander', 'id' => $commander->getId()]); ?>">
+                <span class="glyphicon glyphicon-remove-circle"></span> Delete
+            </a>
+        </span>
+        </div>
+    </div>
+</div>

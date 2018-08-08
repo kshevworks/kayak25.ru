@@ -1,0 +1,70 @@
+<?php
+$this->headTitle('Orders');
+
+
+$this->adminMenu()->setActiveItemId('orders');
+
+$this->pageBreadcrumbs()->setItems([
+    'Main' => $this->url('admin'),
+    'Orders' => $this->url('admin', ['action' => 'orders'])
+]);
+$this->flashMessenger()->render('error', ['alert', 'alert-warning']);
+$this->flashMessenger()->render('success', ['alert', 'alert-success']);
+$this->flashMessenger()->render('info', ['alert', 'alert-info']);
+?>
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <table class="table table-striped">
+
+                <tr>
+                    <th>#</th>
+                    <th>Time</th>
+                    <th>Full Name</th>
+                    <th>Phone</th>
+                    <th>Email</th>
+                    <th>Order</th>
+                    <th>Close</th>
+                </tr>
+
+                <?php foreach ($orders as $order): ?>
+                    <tr <?php if ($order->getIsClosed()): ?>style="background-color: darkseagreen"<?php endif; ?>>
+                        <td><?= $order->getId(); ?></td>
+                        <td><?= $order->getPublishTime(); ?></td>
+                        <td><?= $order->getName(); ?></td>
+                        <td><?= $order->getPhoneNumber(); ?></td>
+                        <td><?= $order->getEmail(); ?></td>
+                        <td><?php $i = 0;
+                            foreach ($order->getShopItems() as $shopItem): ?>
+                                <div>
+                                    <?= $shopItem->getName();
+                                    $i += $shopItem->getCost(); ?>
+                                </div>
+                            <?php endforeach; ?>
+                            Total: <?= $i ?> rub
+                        </td>
+                        <td>
+                            <?php if (!$order->getIsClosed()): ?>
+                                <a class="btn btn-success" href="<?= $this->url('admin',
+                                    ['action' => 'close-order', 'id' => $order->getId()]); ?>">
+                                    <span class="fa fa-close"></span>
+                                </a>
+                            <?php else: ?>
+                                Closed
+                            <?php endif; ?>
+
+                        </td>
+                    </tr>
+
+                <?php endforeach; ?>
+
+            </table>
+        </div>
+        <div class="col-md-12 text-center">
+            <?= $this->paginationControl($orders,
+                'Sliding',
+                'application/partial/paginator',
+                array('route' => 'admin', ['action' => 'orders'])); ?>
+        </div>
+    </div>
+</div>

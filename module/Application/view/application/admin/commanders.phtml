@@ -1,0 +1,68 @@
+<?php
+$this->headTitle('Commanders');
+
+
+$this->adminMenu()->setActiveItemId('commanders');
+
+$this->pageBreadcrumbs()->setItems([
+    'Main' => $this->url('admin'),
+    'Commanders' => $this->url('admin', ['action' => 'commanders'])
+]);
+$this->flashMessenger()->render('error', ['alert', 'alert-warning']);
+$this->flashMessenger()->render('success', ['alert', 'alert-success']);
+$this->flashMessenger()->render('info', ['alert', 'alert-info']);
+?>
+<div class="container">
+    <div class="row">
+
+        <div class="col-md-12 text-center" style="padding-bottom: 20px">
+            <a class="btn btn-default" href="
+    <?= $this->url('admin', ['action' => 'add-commander']); ?>">
+                <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Add commander
+            </a>
+        </div>
+        <div class="col-md-12">
+            <table class="table table-striped">
+
+                <tr>
+                    <th>ID</th>
+                    <th>Name</th>
+                    <th>Description</th>
+                    <th>Actions</th>
+                </tr>
+
+                <?php foreach ($commanders as $commander): ?>
+
+                    <tr>
+                        <td><?= $this->escapeHtml($commander->getId()); ?></td>
+                        <td>
+                            <a href="<?= $this->url('admin', ['action' => 'view-commander', 'id' => $commander->getId()]); ?>">
+                                <?= $this->escapeHtml($commander->getName()); ?>
+                            </a>
+                        </td>
+                        <td><?= $this->escapeHtml($commander->getDescription()); ?>
+                        </td>
+                        <td>
+                            <a class="btn btn-info" href="<?= $this->url('admin',
+                                ['action' => 'edit-commander', 'id' => $commander->getId()]); ?>">
+                                <span class="glyphicon glyphicon-pencil"></span> Edit
+                            </a>
+                            <a class="btn btn-default btn-danger" href="<?= $this->url('admin',
+                                ['action' => 'delete-commander', 'id' => $commander->getId()]); ?>">
+                                <span class="glyphicon glyphicon-remove-circle"></span> Delete
+                            </a>
+                        </td>
+                    </tr>
+
+                <?php endforeach; ?>
+
+            </table>
+        </div>
+        <div class="col-md-12 text-center">
+            <?= $this->paginationControl($commanders,
+                'Sliding',
+                'application/partial/paginator',
+                array('route' => 'admin', ['action' => 'commanders'])); ?>
+        </div>
+    </div>
+</div>

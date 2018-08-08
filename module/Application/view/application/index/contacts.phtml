@@ -1,0 +1,70 @@
+<section id="contact" class="contact">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="text-center">
+                    <h2 class="white-text">Наши контакты</h2>
+                </div>
+            </div>
+        </div>
+
+        <!--<div class="row">
+            <div class="col-lg-12">
+                <form name="sentMessage" id="contactForm" novalidate>
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="form-group">
+                                <input type="text" class="form-control" placeholder="Ваше имя *" id="name" required
+                                       data-validation-required-message="Пожалуйста, введите имя">
+                                <p class="help-block text-danger"></p>
+                            </div>
+                            <div class="form-group">
+                                <input type="text" class="form-control" placeholder="Номер телефона *" id="phone"
+                                       required data-validation-required-message="Пожалуйста, введите номер телефона.">
+                                <p class="help-block text-danger"></p>
+                            </div>
+                            <div class="form-group">
+                                <textarea class="form-control" placeholder="Сообщение *" id="message" required
+                                          data-validation-required-message="Введите сообщение."></textarea>
+                                <p class="help-block text-danger"></p>
+                            </div>
+                        </div>
+
+                        <div class="clearfix"></div>
+                        <div id="recaptcha" class="g-recaptcha" data-sitekey="6LfroVoUAAAAAJ7MaVyK-Uega0Nuckd6hn0j1fBu"
+                             data-callback="onSubmit" data-size="invisible" data-badge="inline"></div>
+                        <input id="response" type="hidden">
+                        <div class="col-lg-12 text-center">
+                            <div id="success"></div>
+                            <button type="submit" class="btn btn-primary">Отправить</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>-->
+        <div class="row">
+            <div class="col-md-4 text-center" style="float: none; margin: 0 auto;">
+                <div class="footer-contact-info">
+                    <ul>
+                        <?php
+                        foreach ($this->contacts as $contact) {
+                            echo "<li><strong>" . $contact->getFieldName() . " :</strong>" . $contact->getFieldData() . "</li>";
+                        }
+                        ?>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <h5 class="white-text text-center" style="margin-top:30px">Наши партнеры</h5>
+            <div class="col-md-12" style="display: flex;justify-content: center">
+                <?php
+                foreach ($this->partners as $partner) {
+                    echo $this->partial('application/index/partner', ['partner' => $partner]);
+                }
+                ?>
+            </div>
+        </div>
+    </div>
+    <?= $this->partial('application/index/footer'); ?>
+</section>

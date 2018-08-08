@@ -1,0 +1,61 @@
+<?php
+$this->headTitle('Add Album');
+
+
+$form->get('name')->setAttributes([
+    'class' => 'form-control'
+]);
+
+$form->get('description')->setAttributes([
+    'class' => 'form-control'
+]);
+
+
+$form->get('date')->setAttributes([
+    'class' => 'form-control'
+]);
+
+$form->get('submit')
+    ->setAttributes(['class' => 'btn btn-primary'])
+    ->setValue('Save');
+
+$form->prepare();
+
+
+$this->pageBreadcrumbs()->setItems([
+    'Main' => $this->url('admin'),
+    'Gallery' => $this->url('admin', ['action' => 'albums']),
+    'Add new album' => $this->url('admin', ['action' => 'add-album'])
+]);
+?>
+
+
+<div class="container">
+    <div class="row">
+
+        <div class="col-md-6 text-center" style="float: none;margin: 0 auto;">
+            <?= $this->form()->openTag($form); ?>
+
+            <div class="form-group">
+                <?= $this->formLabel($form->get('name')); ?>
+                <?= $this->formElement($form->get('name')); ?>
+                <?= $this->formElementErrors($form->get('name')); ?>
+            </div>
+            <div class="form-group">
+                <?= $this->formLabel($form->get('description')); ?>
+                <?= $this->formElement($form->get('description')); ?>
+                <?= $this->formElementErrors($form->get('description')); ?>
+            </div>
+
+            <div class="form-group">
+                <?= $this->formLabel($form->get('date')); ?>
+                <?= $this->formElement($form->get('date')); ?>
+                <?= $this->formElementErrors($form->get('date')); ?>
+            </div>
+
+            <?= $this->formElement($form->get('submit')); ?>
+
+            <?= $this->form()->closeTag(); ?>
+        </div>
+    </div>
+</div>

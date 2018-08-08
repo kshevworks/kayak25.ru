@@ -1,0 +1,283 @@
+<?php
+$this->headTitle('View ' . $shopitem->getName() . '\'s info');
+
+
+$this->pageBreadcrumbs()->setItems([
+    'Main' => $this->url('admin'),
+    'Shop' => $this->url('admin', ['action' => 'shop']),
+    'View ' . $shopitem->getName() . '\'s info' => $this->url('admin', ['action' => 'view-shop-item'])
+]);
+
+
+$gistFormEdit = $gistForm;
+$gistForm->setAttribute('action', '/admin/add-shop-item-gist/' . $shopitem->getId());
+
+$parameterFormEdit = $parameterForm;
+$parameterForm->setAttribute('action', '/admin/add-shop-item-parameter/' . $shopitem->getId());
+?>
+
+
+<div class="container">
+    <div class="row">
+        <div class="text-center" style="">
+            <a class="btn btn-info" href="<?= $this->url('admin',
+                ['action' => 'edit-shop-item', 'id' => $shopitem->getId()]); ?>">
+                <span class="glyphicon glyphicon-pencil"></span> Edit item
+            </a>
+            <a class="btn btn-default btn-danger" href="<?= $this->url('admin',
+                ['action' => 'delete-shop-item', 'id' => $shopitem->getId()]); ?>">
+                <span class="glyphicon glyphicon-remove-circle"></span> Delete item
+            </a>
+            <h1><?= $shopitem->getName() ?></h1>
+            <img src="<?= $shopitem->getImage() ?>" class="img-responsive" alt=".." style="float: none;margin: 0 auto;">
+        </div>
+    </div>
+    <div class="row">
+        <div class="text-center">
+            <h2><?= $shopitem->getFormattedCost(); ?></h2>
+            <h3>Additional Info</h3>
+            <a class="btn btn-default" href="#add-gist" data-toggle="modal">
+                <span class="glyphicon glyphicon-plus"></span> Add histogram
+            </a>
+            <a class="btn btn-default" href="#add-parameter" data-toggle="modal">
+                <span class="glyphicon glyphicon-plus"></span> Add parameter
+            </a>
+        </div>
+    </div>
+    <div class="row" style="display: flex; justify-content: center">
+        <?php if ($shopitem->getGists()[0]): ?>
+            <div class="col-md-6">
+                <div class="plan-list">
+                    <ul>
+                        <li>
+                            <?php foreach ($shopitem->getGists() as $gist): ?>
+                                <div class="skill-shortcode">
+                                    <!-- Progress Bar -->
+
+                                    <div class="skill">
+                                        <p><?= $gist->getName() ?>
+                                            <a class="btn btn-info" href="#edit-gist<?= $gist->getId() ?>"
+                                               data-toggle="modal">
+                                                <span class="fa fa-pencil"></span>
+                                            </a>
+                                            <a class="btn btn-danger" href="<?= $this->url('admin',
+                                                ['action' => 'delete-shop-item-gist', 'id' => $gist->getId()]); ?>">
+                                                <span class="fa fa-remove"></span>
+                                            </a>
+                                        </p>
+                                        <div class="progress">
+                                            <div class="progress-bar" role="progressbar"
+                                                 data-percentage="<?= $gist->getValue() * 10 ?>">
+                                                <span class="progress-bar-span"><?= $gist->getValue() ?>/10</span>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            <?php endforeach; ?>
+
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        <?php endif; ?>
+        <div class="col-md-6 text-center">
+            <?php if ($shopitem->getParameters()[0]): ?>
+                <?php foreach ($shopitem->getParameters() as $parameter): ?>
+                    <p style="margin: 0"><strong><?= $parameter->getName() ?>:</strong> <?= $parameter->getValue() ?>
+                        <a class="btn btn-info" href="#edit-parameter<?= $parameter->getId() ?>" data-toggle="modal">
+                            <span class="fa fa-pencil"></span>
+                        </a>
+                        <a class="btn btn-danger" href="<?= $this->url('admin',
+                            ['action' => 'delete-shop-item-parameter', 'id' => $parameter->getId()]); ?>">
+                            <span class="fa fa-remove"></span>
+                        </a>
+                    </p>
+                <?php endforeach; ?>
+            <?php endif; ?>
+            <p style="margin: 10px"><strong>Description:</strong><br><?= $shopitem->getDescription(); ?></p>
+
+        </div>
+    </div>
+</div>
+<?php
+$gistForm->get('name')->setAttributes([
+    'class' => 'form-control'
+]);
+$gistForm->get('value')->setAttributes([
+    'class' => 'form-control'
+]);
+$gistForm->get('submit')->setAttributes(['class' => 'btn btn-primary']);
+$gistForm->prepare();
+?>
+
+
+<div class="modal fade" id="add-gist" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header text-center">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                <h1 class="modal-title">Add histogram</h1>
+            </div>
+            <div class="modal-body" style="max-height: 691px;overflow-y: auto;">
+                <div class="col-md-12 text-center" style="float: none;margin: 0 auto;">
+                    <?= $this->form()->openTag($gistForm); ?>
+
+                    <div class="form-group">
+                        <?= $this->formLabel($gistForm->get('name')); ?>
+                        <?= $this->formElement($gistForm->get('name')); ?>
+                        <?= $this->formElementErrors($gistForm->get('name')); ?>
+                    </div>
+                    <div class="form-group">
+                        <?= $this->formLabel($gistForm->get('value')); ?>
+                        <?= $this->formElement($gistForm->get('value')); ?>
+                        <?= $this->formElementErrors($gistForm->get('value')); ?>
+                    </div>
+                    <?= $this->formElement($gistForm->get('submit')); ?>
+
+                    <?= $this->form()->closeTag(); ?>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+<?php
+$parameterForm->get('name')->setAttributes([
+    'class' => 'form-control'
+]);
+$parameterForm->get('value')->setAttributes([
+    'class' => 'form-control'
+]);
+$parameterForm->get('submit')->setAttributes(['class' => 'btn btn-primary']);
+$parameterForm->prepare();
+?>
+
+
+<div class="modal fade" id="add-parameter" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header text-center">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                <h1 class="modal-title">Add parameter</h1>
+            </div>
+            <div class="modal-body" style="max-height: 691px;overflow-y: auto;">
+                <div class="col-md-12 text-center" style="float: none;margin: 0 auto;">
+                    <?= $this->form()->openTag($parameterForm); ?>
+
+                    <div class="form-group">
+                        <?= $this->formLabel($parameterForm->get('name')); ?>
+                        <?= $this->formElement($parameterForm->get('name')); ?>
+                        <?= $this->formElementErrors($parameterForm->get('name')); ?>
+                    </div>
+                    <div class="form-group">
+                        <?= $this->formLabel($parameterForm->get('value')); ?>
+                        <?= $this->formElement($parameterForm->get('value')); ?>
+                        <?= $this->formElementErrors($parameterForm->get('value')); ?>
+                    </div>
+                    <?= $this->formElement($parameterForm->get('submit')); ?>
+
+                    <?= $this->form()->closeTag(); ?>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<?php if ($shopitem->getGists()[0]): ?>
+    <?php foreach ($shopitem->getGists() as $gist): ?>
+        <?php
+        $gistFormEdit->get('name')->setAttributes([
+            'class' => 'form-control'
+        ])->setValue($gist->getName());
+        $gistFormEdit->get('value')->setAttributes([
+            'class' => 'form-control'
+        ])->setValue($gist->getValue());
+        $gistFormEdit->get('submit')->setAttributes(['class' => 'btn btn-primary'])->setValue('Save');
+        $gistFormEdit->setAttribute('action', '/admin/edit-shop-item-gist/' . $gist->getId());
+        $gistFormEdit->prepare();
+        ?>
+
+
+        <div class="modal fade" id="edit-gist<?= $gist->getId() ?>" tabindex="-1" role="dialog" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header text-center">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                        <h1 class="modal-title">Edit histogram</h1>
+                    </div>
+                    <div class="modal-body" style="max-height: 691px;overflow-y: auto;">
+                        <div class="col-md-12 text-center" style="float: none;margin: 0 auto;">
+                            <?= $this->form()->openTag($gistFormEdit); ?>
+
+                            <div class="form-group">
+                                <?= $this->formLabel($gistFormEdit->get('name')); ?>
+                                <?= $this->formElement($gistFormEdit->get('name')); ?>
+                                <?= $this->formElementErrors($gistFormEdit->get('name')); ?>
+                            </div>
+                            <div class="form-group">
+                                <?= $this->formLabel($gistFormEdit->get('value')); ?>
+                                <?= $this->formElement($gistFormEdit->get('value')); ?>
+                                <?= $this->formElementErrors($gistFormEdit->get('value')); ?>
+                            </div>
+                            <?= $this->formElement($gistFormEdit->get('submit')); ?>
+
+                            <?= $this->form()->closeTag(); ?>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    <?php endforeach; ?>
+<?php endif; ?>
+
+<?php if ($shopitem->getParameters()[0]): ?>
+    <?php foreach ($shopitem->getParameters() as $parameter): ?>
+        <?php
+        $parameterFormEdit->get('name')->setAttributes([
+            'class' => 'form-control'
+        ])->setValue($parameter->getName());
+        $parameterFormEdit->get('value')->setAttributes([
+            'class' => 'form-control'
+        ])->setValue($parameter->getValue());
+        $parameterFormEdit->get('submit')->setAttributes(['class' => 'btn btn-primary'])->setValue('Save');
+        $parameterFormEdit->setAttribute('action', '/admin/edit-shop-item-parameter/' . $parameter->getId());
+        $parameterFormEdit->prepare();
+        ?>
+
+
+        <div class="modal fade" id="edit-parameter<?= $parameter->getId() ?>" tabindex="-1" role="dialog"
+             aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header text-center">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                        <h1 class="modal-title">Edit parameter</h1>
+                    </div>
+                    <div class="modal-body" style="max-height: 691px;overflow-y: auto;">
+                        <div class="col-md-12 text-center" style="float: none;margin: 0 auto;">
+                            <?= $this->form()->openTag($parameterFormEdit); ?>
+
+                            <div class="form-group">
+                                <?= $this->formLabel($parameterFormEdit->get('name')); ?>
+                                <?= $this->formElement($parameterFormEdit->get('name')); ?>
+                                <?= $this->formElementErrors($parameterFormEdit->get('name')); ?>
+                            </div>
+                            <div class="form-group">
+                                <?= $this->formLabel($parameterFormEdit->get('value')); ?>
+                                <?= $this->formElement($parameterFormEdit->get('value')); ?>
+                                <?= $this->formElementErrors($parameterFormEdit->get('value')); ?>
+                            </div>
+                            <?= $this->formElement($parameterFormEdit->get('submit')); ?>
+
+                            <?= $this->form()->closeTag(); ?>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    <?php endforeach; ?>
+<?php endif; ?>

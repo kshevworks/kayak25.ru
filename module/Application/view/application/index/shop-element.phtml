@@ -1,0 +1,34 @@
+<div class="col-md-12">
+    <div class="pricing-table">
+        <div class="plan-name">
+            <h3><?= $this->shopitem->getName() ?></h3>
+        </div>
+        <div class="plan-price">
+            <div class="price-value"><?= $this->shopitem->getFormattedCost() ?></div>
+        </div>
+        <div class="plan-list">
+            <ul>
+                <?php if ($this->shopitem->getParameters()[0]): ?>
+                    <?php
+                    for ($i = 0; $i < 5; $i++) {
+                        $parameter = $this->shopitem->getParameters()[$i];
+                        if ($parameter != null) {
+                            echo '<li>' . $parameter->getName() . ': ' . $parameter->getValue() . '</li>';
+                        } else {
+                            echo '<li><br></li>';
+                        }
+                    }
+
+                    ?>
+                <?php endif; ?>
+            </ul>
+            <a href="#shop-item-details<?= $this->shopitem->getId() ?>" data-toggle="modal"
+               class="btn-system btn-small">
+                <div class="plan-signup" id="shopitemdetails">
+                    <h4 style="color:white;">Подробнее</h4>
+                </div>
+            </a>
+        </div>
+    </div>
+
+</div>

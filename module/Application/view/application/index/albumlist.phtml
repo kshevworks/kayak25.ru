@@ -1,0 +1,27 @@
+<section id="portfolio" class="call-to-action">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="section-title text-center">
+                    <h2>Галерея</h2>
+                    <p>Фотографии с мероприятий</p>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div id="portfolio-list">
+                <?php
+                foreach ($this->albums as $album) {
+                    echo $this->partial('application/index/album', ['album' => $album]);
+                }
+                ?>
+            </div>
+        </div>
+    </div>
+</section>
+
+<?php
+foreach ($this->albums as $album) {
+    echo $this->partial('application/index/photolist', ['album' => $album]);
+}
+?>

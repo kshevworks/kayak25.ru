@@ -1,0 +1,66 @@
+<?php
+$this->headTitle('Counters');
+
+
+$this->adminMenu()->setActiveItemId('counters');
+
+$this->pageBreadcrumbs()->setItems([
+    'Main' => $this->url('admin'),
+    'Counters' => $this->url('admin', ['action' => 'counters'])
+]);
+$this->flashMessenger()->render('error', ['alert', 'alert-warning']);
+$this->flashMessenger()->render('success', ['alert', 'alert-success']);
+$this->flashMessenger()->render('info', ['alert', 'alert-info']);
+?>
+<div class="container">
+    <div class="row">
+        <div class="col-md-12 text-center" style="padding-bottom: 20px">
+            <a class="btn btn-default <?php if ($this->count > 3) {
+                echo 'disabled';
+            } ?>" href="<?= $this->url('admin', ['action' => 'add-counter']); ?>" role="button">
+                <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Add counter
+            </a>
+        </div>
+        <div class="col-md-12">
+            <table class="table table-striped">
+
+                <tr>
+                    <th>ID</th>
+                    <th>Icon</th>
+                    <th>Count</th>
+                    <th>Speed</th>
+                    <th>Description</th>
+                    <th>Actions</th>
+                </tr>
+
+                <?php foreach ($counters as $counter): ?>
+
+                    <tr>
+                        <td><?= $this->escapeHtml($counter->getId()); ?></td>
+                        <td>
+                            <i class="fa <?= $this->escapeHtml($counter->getIcon()); ?>"></i> <?= $this->escapeHtml($counter->getIcon()); ?>
+                        </td>
+                        <td>
+                            <?= $this->escapeHtml($counter->getCount()); ?>
+                        </td>
+                        <td><?= $this->escapeHtml($counter->getSpeed()); ?>
+                        </td>
+                        <td><?= $this->escapeHtml($counter->getName()); ?>
+                        </td>
+                        <td>
+                            <a class="btn btn-info" href="<?= $this->url('admin',
+                                ['action' => 'edit-counter', 'id' => $counter->getId()]); ?>">
+                                <span class="glyphicon glyphicon-pencil"></span> Edit
+                            </a>
+                            <a class="btn btn-default btn-danger" href="<?= $this->url('admin',
+                                ['action' => 'delete-counter', 'id' => $counter->getId()]); ?>">
+                                <span class="glyphicon glyphicon-remove-circle"></span> Delete
+                            </a>
+                        </td>
+                    </tr>
+                <?php endforeach; ?>
+
+            </table>
+        </div>
+    </div>
+</div>

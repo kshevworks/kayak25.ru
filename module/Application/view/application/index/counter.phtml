@@ -1,0 +1,8 @@
+<div class="col-xs-12 col-sm-6 col-md-3">
+    <div class="counter-item">
+        <i class="fa <?= $this->counter->getIcon() ?>"></i>
+        <div class="timer" id="<?= $this->counter->getId() ?>" data-to="<?= $this->counter->getCount() ?>"
+             data-speed="<?= $this->counter->getSpeed() ?>"></div>
+        <h5><?= $this->counter->getName(); ?></h5>
+    </div>
+</div>

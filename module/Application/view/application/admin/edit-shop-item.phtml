@@ -1,0 +1,71 @@
+<?php
+$this->headTitle('Edit ' . $shopitem->getName() . ' Info');
+
+$form->get('name')->setAttributes([
+    'class' => 'form-control'
+]);
+
+$form->get('description')->setAttributes([
+    'class' => 'form-control'
+]);
+$form->get('cost')->setAttributes([
+    'class' => 'form-control'
+]);
+
+$form->get('image')->setAttributes([
+    'class' => 'form-control'
+]);
+
+$form->get('submit')->setAttributes(['class' => 'btn btn-primary'])->setValue('Save');
+
+$form->prepare();
+
+$this->pageBreadcrumbs()->setItems([
+    'Main' => $this->url('admin'),
+    'Shop' => $this->url('admin', ['action' => 'shop']),
+    'Edit ' . $shopitem->getName() . ' Info' => $this->url('admin', ['action' => 'edit-shop-item'])
+]);
+?>
+
+<div class="container">
+    <div class="row">
+
+        <div class="col-md-6 text-center" style="float: none;margin: 0 auto;">
+            <?= $this->form()->openTag($form); ?>
+
+            <div class="form-group">
+                <?= $this->formLabel($form->get('name')); ?>
+                <?= $this->formElement($form->get('name')); ?>
+                <?= $this->formElementErrors($form->get('name')); ?>
+            </div>
+            <div class="form-group">
+                <?= $this->formLabel($form->get('cost')); ?>
+                <?= $this->formElement($form->get('cost')); ?>
+                <?= $this->formElementErrors($form->get('cost')); ?>
+            </div>
+            <div class="form-group">
+                <?= $this->formLabel($form->get('description')); ?>
+                <?= $this->formElement($form->get('description')); ?>
+                <?= $this->formElementErrors($form->get('description')); ?>
+            </div>
+
+            <div>
+                <p>Old image:</p>
+                <span><img src="<?= $shopitem->getImage() ?>"
+                           style="width: 285px; height: auto; margin-bottom: 40px;"/></span>
+
+            </div>
+
+            <div class="form-group">
+                <?= $this->formLabel($form->get('image')); ?>
+                <?= $this->formElement($form->get('image')); ?>
+                <?= $this->formElementErrors($form->get('image')); ?>
+            </div>
+
+            <?= $this->formElement($form->get('submit')); ?>
+
+            <?= $this->form()->closeTag(); ?>
+        </div>
+    </div>
+</div>
+

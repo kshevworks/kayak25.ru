@@ -1,0 +1,23 @@
+<div id="testimonial" class="testimonial-section">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12 col-sm-12">
+                <div class="section-title text-center">
+                    <h2>Отзывы о нас</h2>
+                    <p>Честные и некупленные</p>
+                </div>
+            </div>
+        </div>
+        <!-- Start Testimonials Carousel -->
+        <div id="testimonial-carousel" class="testimonials-carousel">
+
+            <?php
+            foreach ($this->testimonials as $testimonial) {
+                echo $this->partial('application/index/testimonial', ['testimonial' => $testimonial]);
+            }
+            ?>
+
+        </div>
+        <!-- End Testimonials Carousel -->
+    </div>
+</div>

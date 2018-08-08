@@ -1,0 +1,96 @@
+<?php if ($shopitem->getGists()[0]): ?>
+    <?php foreach ($shopitem->getGists() as $gist): ?>
+        <?php
+        $gistFormEdit->get('name')->setAttributes([
+            'class' => 'form-control'
+        ])->setValue($gist->getName());
+        $gistFormEdit->get('value')->setAttributes([
+            'class' => 'form-control'
+        ])->setValue($gist->getValue());
+        $gistFormEdit->get('submit')->setAttributes(['class' => 'btn btn-primary'])->setValue('Save');
+        $gistFormEdit->setAttribute('action', '/admin/edit-shop-item-gist/' . $gist->getId());
+        $gistFormEdit->prepare();
+        ?>
+
+
+        <div class="modal fade" id="add-gist<?= $gist->getId() ?>" tabindex="-1" role="dialog" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header text-center">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                        <h1 class="modal-title">Edit histogram</h1>
+                    </div>
+                    <div class="modal-body" style="max-height: 691px;overflow-y: auto;">
+                        <div class="col-md-12 text-center" style="float: none;margin: 0 auto;">
+                            <?= $this->form()->openTag($gistFormEdit); ?>
+
+                            <div class="form-group">
+                                <?= $this->formLabel($gistFormEdit->get('name')); ?>
+                                <?= $this->formElement($gistFormEdit->get('name')); ?>
+                                <?= $this->formElementErrors($gistFormEdit->get('name')); ?>
+                            </div>
+                            <div class="form-group">
+                                <?= $this->formLabel($gistFormEdit->get('value')); ?>
+                                <?= $this->formElement($gistFormEdit->get('value')); ?>
+                                <?= $this->formElementErrors($gistFormEdit->get('value')); ?>
+                            </div>
+                            <?= $this->formElement($gistFormEdit->get('submit')); ?>
+
+                            <?= $this->form()->closeTag(); ?>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    <?php endforeach; ?>
+<?php endif; ?>
+
+<?php if ($shopitem->getParameters()[0]): ?>
+    <?php foreach ($shopitem->getParameters() as $parameter): ?>
+        <?php
+        $parameterFormEdit->get('name')->setAttributes([
+            'class' => 'form-control'
+        ])->setValue($parameter->getName());
+        $parameterFormEdit->get('value')->setAttributes([
+            'class' => 'form-control'
+        ])->setValue($parameter->getValue());
+        $parameterFormEdit->get('submit')->setAttributes(['class' => 'btn btn-primary'])->setValue('Save');
+        $parameterFormEdit->setAttribute('action', '/admin/edit-shop-item-parameter/' . $parameter->getId());
+        $parameterFormEdit->prepare();
+        ?>
+
+
+        <div class="modal fade" id="edit-parameter<?= $parameter->getId() ?>" tabindex="-1" role="dialog"
+             aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header text-center">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                        <h1 class="modal-title">Edit parameter</h1>
+                    </div>
+                    <div class="modal-body" style="max-height: 691px;overflow-y: auto;">
+                        <div class="col-md-12 text-center" style="float: none;margin: 0 auto;">
+                            <?= $this->form()->openTag($parameterFormEdit); ?>
+
+                            <div class="form-group">
+                                <?= $this->formLabel($parameterFormEdit->get('name')); ?>
+                                <?= $this->formElement($parameterFormEdit->get('name')); ?>
+                                <?= $this->formElementErrors($parameterFormEdit->get('name')); ?>
+                            </div>
+                            <div class="form-group">
+                                <?= $this->formLabel($parameterFormEdit->get('value')); ?>
+                                <?= $this->formElement($parameterFormEdit->get('value')); ?>
+                                <?= $this->formElementErrors($parameterFormEdit->get('value')); ?>
+                            </div>
+                            <?= $this->formElement($parameterFormEdit->get('submit')); ?>
+
+                            <?= $this->form()->closeTag(); ?>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    <?php endforeach; ?>
+<?php endif; ?>

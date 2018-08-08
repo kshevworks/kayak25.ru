@@ -1,0 +1,10 @@
+<div class="testimonials item">
+    <div class="testimonial-content">
+        <img src="<?= $this->testimonial->getPhoto() ?>" alt="">
+        <div class="testimonial-author">
+            <div class="author"><?= $this->testimonial->getAuthor() ?></div>
+            <div class="designation"><?= $this->testimonial->getDescription() ?></div>
+        </div>
+        <p><?= $this->testimonial->getText() ?></p>
+    </div>
+</div>

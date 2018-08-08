@@ -1,0 +1,79 @@
+<?php
+$this->headTitle('View ' . $album->getName());
+
+
+$this->pageBreadcrumbs()->setItems([
+    'Main' => $this->url('admin'),
+    'Gallery' => $this->url('admin', ['action' => 'albums']),
+    'View ' . $album->getName() . ' photos' => $this->url('admin', ['action' => 'view-album'])
+]);
+?>
+
+
+<div class="container">
+    <div class="row text-center">
+        <div class="col-md-12">
+            <h3><?= $album->getName() ?></h3>
+            <h4><?= $album->getDate(); ?></h4>
+            <h5><?= $album->getDescription() ?></h5>
+        </div>
+        <div class="col-md-12" style="padding-top: 10px">
+        <span>
+            <a class="btn btn-info" href="<?= $this->url('admin',
+                ['action' => 'edit-album', 'id' => $album->getId()]); ?>" style="width: 150px">
+                <span class="glyphicon glyphicon-pencil"></span> Edit Album Info
+            </a>
+            <a class="btn btn-default btn-danger" href="<?= $this->url('admin',
+                ['action' => 'delete-album', 'id' => $album->getId()]); ?>" style="width: 150px">
+                <span class="glyphicon glyphicon-remove-circle"></span> Delete Album
+            </a>
+        </span>
+        </div>
+        <div class="col-md-12" style="padding-top: 10px">
+        <span>
+            <a class="btn btn-default" href="<?= $this->url('admin',
+                ['action' => 'add-photo', 'id' => $album->getId()]); ?>">
+                <span class="glyphicon glyphicon-plus"></span> Add New Photos
+            </a>
+        </span>
+        </div>
+        <div class="col-md-12" style="padding-top: 50px; padding-bottom: 50px;">
+            <?php foreach ($album->getPhotos()
+                           as $photo): ?>
+                <div style="width:auto; margin-bottom: 3px; display: inline-block">
+                    <a href="#photo<?= $photo->getId(); ?>" data-toggle="modal"><img src="<?= $photo->getUrl(); ?>"
+                                                                                     style="width:300px;height: auto;border: 2px solid black;"/></a>
+                </div>
+
+            <?php endforeach; ?>
+        </div>
+
+
+    </div>
+    <?php foreach ($album->getPhotos()
+                   as $photo): ?>
+        <div class="section-modal modal fade" id="photo<?= $photo->getId(); ?>" tabindex="-1" role="dialog"
+             aria-hidden="true">
+            <div class="modal-content">
+                <div class="close-modal" data-dismiss="modal">
+                    <div class="lr">
+                        <div class="rl">
+                        </div>
+                    </div>
+                </div>
+                <div class="section-title text-center" style="padding-bottom: 25px">
+                    <a class="btn btn-default btn-danger" href="<?= $this->url('admin',
+                        ['action' => 'delete-photo', 'id' => $album->getId()]); ?>">
+                        <span class="glyphicon glyphicon-remove-circle"></span> Delete Photo
+                    </a>
+                </div>
+                <hr>
+                <div class="section-title text-center">
+                    <img src="<?= $photo->getUrl(); ?>" style="max-width:80vw;height:auto;"/>
+                </div>
+
+            </div>
+        </div>
+
+    <?php endforeach; ?>
+</div>

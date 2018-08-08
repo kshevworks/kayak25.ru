@@ -1,0 +1,8 @@
+<div class="portfolio-item">
+    <a href="#album<?= $this->album->getId() ?>" data-toggle="modal" class="link-1">
+        <img src="<?= $this->album->getFirstPhoto()->getUrl() ?>" class="img-responsive" alt=""/>
+        <div class="portfolio-caption">
+            <h4><?= $this->album->getName() ?></h4>
+        </div>
+    </a>
+</div>

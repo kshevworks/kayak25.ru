@@ -1,0 +1,95 @@
+<?php
+$this->shopcartform->setAttributes([
+    'id' => 'order-form'
+
+]);
+
+$this->shopcartform->get('user-name')->setAttributes([
+    'class' => 'form-control',
+    'id' => 'user-name',
+    'required',
+]);
+
+$this->shopcartform->get('user-phone')->setAttributes([
+    'class' => 'form-control',
+    'id' => 'user-phone',
+    'required',
+]);
+
+$this->shopcartform->get('user-email')->setAttributes([
+    'class' => 'form-control',
+    'id' => 'user-email',
+    'required',
+]);
+
+
+$this->shopcartform->get('submit')
+    ->setAttributes(['class' => 'btn btn-primary'])
+    ->setValue('Заказать');
+
+$this->shopcartform->prepare();
+?>
+<section id="cart">
+    <div class="modal fade" id="view-cart" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header text-center">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                    <h3 class="modal-title">Ваша корзина</h3>
+                </div>
+                <div class="modal-body" style="max-height: 691px;overflow-y: auto; ">
+                    <div class="col-md-12">
+                        <h1 id='empty-sign' class="text-center" style="display: none;">Пуста</h1>
+                        <table class="table-striped col-md-12 text-center" id="shopping-cart">
+                            <tr>
+                                <th class="col-md-9 text-center">Позиция</th>
+                                <th class="col-md-1 text-center">Цена</th>
+                                <th class="col-md-1 text-center">Количество</th>
+                                <th class="col-md-1 text-center">Стоимость</th>
+                            </tr>
+                        </table>
+                    </div>
+                    <div class="col-md-12" id="sc-summ">
+                        <h4 id="sc-summary-nd" style="display:none;">0</h4>
+                        <h4 style="float: right">Итого: <strong id="sc-summary">0</strong></h4>
+                    </div>
+
+                    <div class="col-md-12 text-center">
+                        <?= $this->form()->openTag($this->shopcartform); ?>
+                        <div class="form-group">
+                            <?= $this->formLabel($this->shopcartform->get('user-name')); ?>
+                            <?= $this->formElement($this->shopcartform->get('user-name')); ?>
+                            <?= $this->formElementErrors($this->shopcartform->get('user-name')); ?>
+                        </div>
+                        <div class="form-group">
+                            <?= $this->formLabel($this->shopcartform->get('user-phone')); ?>
+                            <?= $this->formElement($this->shopcartform->get('user-phone')); ?>
+                            <?= $this->formElementErrors($this->shopcartform->get('user-phone')); ?>
+                        </div>
+                        <div class="form-group">
+                            <?= $this->formLabel($this->shopcartform->get('user-email')); ?>
+                            <?= $this->formElement($this->shopcartform->get('user-email')); ?>
+                            <?= $this->formElementErrors($this->shopcartform->get('user-email')); ?>
+                        </div>
+
+                        <div class="clearfix"></div>
+                        <div id="recaptcha" class="g-recaptcha" data-sitekey="6LfoA2gUAAAAANeD4c0BiUzuPfarABF9Fz3CaKAc"
+                             data-size="invisible" data-callback="onCompleted" data-badge="inline"></div>
+                        <input id="response" type="hidden">
+
+                        <?= $this->formElement($this->shopcartform->get('submit')); ?>
+
+                        <?= $this->form()->closeTag(); ?>
+                    </div>
+                    <div class="col-md-12 text-center">
+                        <div id="success">
+                        </div>
+
+
+                    </div>
+
+                </div>
+            </div>
+        </div>
+</section>
+
